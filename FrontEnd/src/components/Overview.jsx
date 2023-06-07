@@ -6,7 +6,7 @@ import TdWithName from "./common/TdWithName.jsx";
 import styled from "styled-components";
 
 const ParentTable = styled.table`
-  width: 800px;
+  width: 1000px;
 `;
 
 const Overview = () => {

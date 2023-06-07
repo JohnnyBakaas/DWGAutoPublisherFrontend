@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TableButton } from "./common/TableButton";
+import api from "../api/service.js";
 import DWGSheetTable from "./DWGSheetTable";
 import ChildTable from "./common/ChildTable";
 import TdWithName from "./common/TdWithName";
@@ -14,6 +15,22 @@ const DWGTable = ({ dwgs }) => {
   const showSheets = (dwg) => {
     const foundDWG = copyOfDWGs.find((e) => e.filePath == dwg.filePath);
     foundDWG.display = !foundDWG.display;
+    setCopyOfDWGs([...copyOfDWGs]);
+  };
+
+  const handleOptionChange = (e, dwg) => {
+    const updateDWGStaus = async (dwg) => {
+      console.log(dwg);
+      await api.put(`/api/DWGStatusUpdate/`, {
+        filePath: dwg.filePath,
+        status: dwg.status,
+      });
+    };
+
+    dwg.status = e.target.value;
+
+    updateDWGStaus(dwg);
+
     setCopyOfDWGs([...copyOfDWGs]);
   };
 
@@ -33,7 +50,25 @@ const DWGTable = ({ dwgs }) => {
           <>
             <tr key={dwg.fileName}>
               <TdWithName>{dwg.fileName}</TdWithName>
-              <td>{dwg.status}</td>
+              <td>
+                <select
+                  value={dwg.status}
+                  onChange={(e) => {
+                    handleOptionChange(e, dwg);
+                  }}
+                >
+                  <option value="Ikke påbegynt">Ikke påbegynt</option>
+                  <option value="Under prosjektering">
+                    Under prosjektering
+                  </option>
+                  <option value="Klar for produksjon">
+                    Klar for produksjon
+                  </option>
+                  <option value="Under produksjon">Under produksjon</option>
+                  <option value="Produsert">Produsert</option>
+                  <option value="Levert">Levert</option>
+                </select>
+              </td>
               <td>
                 {new Date(dwg.lastUpdated)
                   .toLocaleString("en-GB", {
