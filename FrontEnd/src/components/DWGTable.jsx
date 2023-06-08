@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TableButton } from "./common/TableButton";
 import api from "../api/service.js";
 import DWGSheetTable from "./DWGSheetTable";
@@ -47,8 +47,8 @@ const DWGTable = ({ dwgs }) => {
       </thead>
       <tbody>
         {dwgs.map((dwg) => (
-          <>
-            <tr key={dwg.fileName}>
+          <React.Fragment key={dwg.fileName}>
+            <tr>
               <TdWithName>{dwg.fileName}</TdWithName>
               <td>
                 <select
@@ -109,7 +109,7 @@ const DWGTable = ({ dwgs }) => {
                 </td>
               </tr>
             ) : null}
-          </>
+          </React.Fragment>
         ))}
       </tbody>
     </ChildTable>

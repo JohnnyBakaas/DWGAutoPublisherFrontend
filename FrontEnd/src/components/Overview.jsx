@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../api/service.js";
 import DWGTable from "./DWGTable.jsx";
 import { TableButton } from "./common/TableButton.jsx";
@@ -52,8 +52,8 @@ const Overview = () => {
         </thead>
         <tbody>
           {projectsData.map((project) => (
-            <>
-              <tr key={project.projectNumber}>
+            <React.Fragment key={project.projectNumber}>
+              <tr>
                 <TdWithName>{project.displayName}</TdWithName>
                 <td>
                   {project.dwGs.length}{" "}
@@ -79,15 +79,15 @@ const Overview = () => {
                 </td>
               </tr>
               {project.display ? (
-                <tr
-                  key={project.projectNumber * Math.floor(Math.random() * 100)}
-                >
+                <tr>
                   <td colSpan="4">
                     <DWGTable dwgs={project.dwGs} />
                   </td>
                 </tr>
-              ) : null}
-            </>
+              ) : (
+                ""
+              )}
+            </React.Fragment>
           ))}
         </tbody>
       </ParentTable>
