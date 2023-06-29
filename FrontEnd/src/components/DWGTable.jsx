@@ -41,7 +41,6 @@ const DWGTable = ({ dwgs }) => {
           <th>Navn</th>
           <th>Status</th>
           <th>Sisst revidert</th>
-          <th>Publiser</th>
           <th>Layouts</th>
         </tr>
       </thead>
@@ -82,15 +81,7 @@ const DWGTable = ({ dwgs }) => {
                   })
                   .replace(" at", ". Kl:")}
               </td>
-              <td>
-                <button
-                  onClick={() => {
-                    //showDWGs(sheet);
-                  }}
-                >
-                  Print
-                </button>
-              </td>
+
               <td>
                 <TableButton
                   selected={dwg.display}
@@ -104,7 +95,7 @@ const DWGTable = ({ dwgs }) => {
             </tr>
             {dwg.display ? (
               <tr>
-                <td colSpan="5">
+                <td colSpan="4">
                   <DWGSheetTable dwg={dwg} />
                 </td>
               </tr>

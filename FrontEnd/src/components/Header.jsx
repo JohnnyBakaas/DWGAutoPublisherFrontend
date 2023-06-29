@@ -1,7 +1,7 @@
 const Header = () => {
   return (
     <header>
-      <h1>Min fantastiske app XD</h1>
+      <h1>DWG Publisher</h1>
     </header>
   );
 };
