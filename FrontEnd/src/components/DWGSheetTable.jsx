@@ -42,15 +42,14 @@ const DWGSheetTable = ({ dwg }) => {
   };
 
   const sendLayoutsToPublishing = () => {
-    // HERRRRRRRR
-
-    const printLayouts = async (obj) => {
-      const response = await api.put("/api/DWGPrinter", obj);
+    const printLayouts = async (layoutObj) => {
+      const response = await api.put("/api/DWGPrinter", layoutObj);
       console.log(response.data);
       let done = false;
       while (!done) {
         if (theChecker(response.data)) done = true;
       }
+
       setSheets([...sheets]);
       setTimeout(() => {
         setHackTheShit(hackTheShit + 1);
@@ -102,8 +101,6 @@ const DWGSheetTable = ({ dwg }) => {
     console.log(output);
 
     printLayouts(output);
-
-    //const interval = setInterval(theChecker, 1000, ticket);
   };
 
   const handleOptionChange = (e, sheet) => {
@@ -117,8 +114,6 @@ const DWGSheetTable = ({ dwg }) => {
       });
 
       console.log(response);
-
-      checkPublisher(response);
     };
 
     sheet.status = e.target.value;

@@ -10,6 +10,7 @@ const ParentTable = styled.table`
 `;
 
 const Overview = () => {
+  const contrastColor = "#353535";
   const [update, setUpdate] = useState(0);
   const [loading, setLoading] = useState(true);
   const [projectsData, setProjectData] = useState([]);
@@ -51,10 +52,11 @@ const Overview = () => {
           </tr>
         </thead>
         <tbody>
-          {projectsData.map((project) => (
+          {projectsData.map((project, i) => (
             <React.Fragment key={project.projectNumber}>
-              <tr>
+              <tr style={i % 2 ? { backgroundColor: contrastColor } : null}>
                 <TdWithName>{project.displayName}</TdWithName>
+
                 <td>
                   {project.dwGs.length}{" "}
                   {/* Legg til sjekking av status på layoutsa */}
@@ -63,10 +65,11 @@ const Overview = () => {
                 <td>
                   {
                     project.dwGs.filter(
-                      (e) => e.status == "klar for produksjon"
+                      (e) => e.status == "Klar for produksjon"
                     ).length
                   }
                 </td>
+
                 <td>
                   <TableButton
                     selected={project.display}
@@ -79,7 +82,7 @@ const Overview = () => {
                 </td>
               </tr>
               {project.display ? (
-                <tr>
+                <tr style={i % 2 ? { backgroundColor: contrastColor } : null}>
                   <td colSpan="4">
                     <DWGTable dwgs={project.dwGs} />
                   </td>
